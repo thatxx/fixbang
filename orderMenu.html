@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/weui.min.css">
+    <link rel="stylesheet" href="css/jquery-weui.min.css">
+    <title>维修条目</title>
+</head>
+<style>
+    body{
+        background-color: #f8f8f8;
+    }
+    .weui-btn{
+        margin-top: 2vh!important;
+        margin-left:  10vw;
+        margin-right: 10vw;
+        background-color: #fff;
+    }
+    .weui-btn_plain-primary{
+        color: #1296db;
+        border: 1px solid #1296db;
+        margin-bottom: 2vh;
+    }
+    .weui-btn_plain-primary:not(.weui-btn_disabled):active{
+        border: 1px solid #0066CC;
+        color: #0066CC;
+    }
+    .weui-cells__title{
+        color: #0066CC;
+    }
+    .page-bd{
+        margin-left: 3vw;
+        margin-right: 3vw;
+        margin-top: 1vh;
+        padding: 2px 0 2px 0;
+        background-color: #fff;
+        box-shadow: 2px 2px 2px  #ddd;
+    }
+    .weui-cells:after{
+        border: initial;
+    }
+</style>
+<body>
+    <div>
+        <div class="page-bd" >
+        <div class="weui-cells weui-cells_form ">
+            <div class="weui-cell weui-cell_access">
+                <div class="weui-cell__hd"><label class="weui-label">维修类别</label></div>
+                <div class="weui-cell__bd">
+                    <input id="fixType" class="weui-input" type="text" readonly>
+                </div>
+                <div class="weui-cell__ft">
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="page-bd" style="min-height: 75vh;">
+        <div class="weui-cells__title">维修项目</div>
+        <div class="weui-cells" id="item-contain">
+            <a class="weui-cell weui-cell_access" href="javascript:;">
+                <div class="weui-cell__bd">
+                    <p>cell standard</p>
+                </div>
+                <div class="weui-cell__ft">说明文字</div>
+            </a>
+        </div>
+        </div>
+    </div>
+    <a href="javascript:goBack();" class="weui-btn weui-btn_plain-primary">返回</a>
+    
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/jquery-weui.min.js"></script>
+    <script type="text/javascript">
+        function goBack (){
+    		window.history.go(-1);
+    	}
+        function getItemHtml(itemName,itemValue){
+            let itemHtml = 
+            '<a class="weui-cell weui-cell_access" href="./orderPlace.html">'+
+                '<div class="weui-cell__bd">'+
+                    '<p>'+itemName+'</p>'+
+                '</div>'+
+                '<div class="weui-cell__ft">￥'+itemValue+'</div>'+
+            '</a>';
+            return itemHtml;
+        }
+        const fixItem = [
+            [
+                {"name":"aasdf","value":"11"},
+                {"name":"aasdf","value":"11"},
+                {"name":"aasdf","value":"11"},
+                {"name":"aasdf","value":"11"},
+                {"name":"aasdf","value":"11"},
+                {"name":"aasdf","value":"11"},
+                {"name":"aasdf","value":"11"},
+            ],
+            [
+                {"name":"aasdf2","value":"112"},
+                {"name":"aasdf2","value":"112"},
+            ],
+            [
+                {"name":"aasdf3","value":"113"},
+                {"name":"aasdf3","value":"113"},
+                {"name":"aasdf3","value":"113"},
+            ],
+            [
+                {"name":"aasdf4","value":"114"},
+                {"name":"aasdf4","value":"114"},
+                {"name":"aasdf4","value":"114"},
+                {"name":"aasdf4","value":"114"},
+            ],
+            [
+                {"name":"aasdf5","value":"115"},
+                {"name":"aasdf5","value":"115"},
+                {"name":"aasdf5","value":"115"},
+                {"name":"aasdf5","value":"115"},
+                {"name":"aasdf5","value":"115"},
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+        ];
+    	$("#fixType").select({
+            title: "选择维修分类",
+            items: [
+                {
+                title: "iPhone 3GS",
+                value: "0",
+                },
+                {
+                title: "iPhone 5",
+                value: "1",
+                },
+                {
+                title: "iPhone 5S",
+                value: "2",
+                },
+                {
+                title: "iPhone 6",
+                value: "3",
+                },
+                {
+                title: "iPhone 6S",
+                value: "4",
+                },
+                {
+                title: "iPhone 6P",
+                value: "5",
+                },
+                {
+                title: "iPhone 6SP",
+                value: "6",
+                },
+                {
+                title: "iPhone SE",
+                value: "7",
+                },
+                {
+                title: "iPhone 7",
+                value: "8"
+                },
+                {
+                title: "iPhone X",
+                value: "9"
+                },
+                {
+                title: "all",
+                value: "10"
+                }
+            ]
+        });
+        $("#fixType").change(function(){
+            let index =  $("#fixType").attr("data-values");
+            let itemHtml = '';
+            if(index == 10){
+                fixItem.forEach(function(item1) {
+                    item1.forEach(function(item){
+                        itemHtml += getItemHtml(item.name,item.value);
+                    },this);
+                }, this);
+            }else{
+                fixItem[index].forEach(function(item) {
+                    itemHtml += getItemHtml(item.name,item.value);
+                }, this);
+            }
+            $("#item-contain").html(itemHtml);
+        });
+    </script>
+</body>
+</html>
