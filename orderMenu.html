@@ -27,25 +27,41 @@
         border: 1px solid #0066CC;
         color: #0066CC;
     }
-    .weui-cells__title{
-        color: #0066CC;
+    .weui-cells__title,.toolbar .picker-button,.weui-cells_radio .weui-check:checked+.weui-icon-checked:before,.weui-label{
+        color: #1296db;
     }
     .page-bd{
-        margin-left: 3vw;
-        margin-right: 3vw;
+        margin-left: 2vw;
+        margin-right: 2vw;
         margin-top: 1vh;
         padding: 2px 0 2px 0;
         background-color: #fff;
         box-shadow: 2px 2px 2px  #ddd;
     }
+    .my-cells{
+        margin-left: 2vw;
+        margin-right: 2vw;
+        margin-top: 1vh;
+        padding: 2px 0 2px 0;
+        box-shadow: 2px 2px 2px  #ddd;
+    }
     .weui-cells:after{
         border: initial;
+    }
+    .my-cells_form{
+        margin-top: 0;
+    }
+    .my-cells_form:before{
+        content: initial;
+    }
+    #item-contain{
+        min-height: 0;
     }
 </style>
 <body>
     <div>
         <div class="page-bd" >
-        <div class="weui-cells weui-cells_form ">
+        <div class="weui-cells weui-cells_form my-cells_form">
             <div class="weui-cell weui-cell_access">
                 <div class="weui-cell__hd"><label class="weui-label">维修类别</label></div>
                 <div class="weui-cell__bd">
@@ -56,16 +72,7 @@
             </div>
         </div>
         </div>
-        <div class="page-bd" style="min-height: 75vh;">
-        <div class="weui-cells__title">维修项目</div>
-        <div class="weui-cells" id="item-contain">
-            <a class="weui-cell weui-cell_access" href="javascript:;">
-                <div class="weui-cell__bd">
-                    <p>cell standard</p>
-                </div>
-                <div class="weui-cell__ft">说明文字</div>
-            </a>
-        </div>
+        <div id="item-contain">
         </div>
     </div>
     <a href="javascript:goBack();" class="weui-btn weui-btn_plain-primary">返回</a>
@@ -77,9 +84,220 @@
     		window.history.go(-1);
     	}
 
+
+        const fixItem = [
+            [
+                [
+                    {"title":"水龙头维修安装"},
+                    {"name":"水龙头维修/安装（普通）","value":"￥50/个"},
+                    {"name":"水龙头维修/安装（混水）","value":"￥60/个"},
+                    {"name":"感应龙头安装","value":"￥70/个"},
+                    {"name":"其他水龙头安装","value":"￥100/个"},
+                    {"name":"其他","value":"面议"}
+                ],
+                [
+                    {"title":"水路管件更换维修"},
+                    {"name":"软管更换维修","value":"￥40/根"},
+                    {"name":"自来水管安装（明管）","value":"￥90起"},
+                    {"name":"铁管拆除（2.5m 以内）","value":"￥100/米"},
+                    {"name":"其他","value":"面议"}
+                ],
+                [
+                    {"title":"阀门更换维修"},
+                    {"name":"阀门更换维修","value":"￥70/个"},
+                    {"name":"角阀更换维修","value":"￥40/个"},
+                    {"name":"其他","value":"面议"}
+                ],
+                [
+                    {"title":"水路综合维修"},
+                    {"name":"水路综合检测","value":"￥60/小时"},
+                    {"name":"暖气打压试水","value":"￥190/次"},
+                    {"name":"防水补漏维修","value":"￥90/次"},
+                    {"name":"其他","value":"面议"}
+                ]              
+            ],
+            [
+                [
+                    {"title":"马桶维修"},
+                    {"name":"马桶水桶配件更换","value":"￥40/套"},
+                    {"name":"马桶盖更换维修","value":"￥40/个"},
+                    {"name":"马桶水箱上水阀维修","value":"￥50/个"},
+                    {"name":"马桶上水管更换","value":"￥40/根"},
+                    {"name":"卫浴洁具组合套餐","value":"￥90/次"},
+                    {"name":"其他","value":"面议"}
+                ],
+                [
+                    {"title":"洗手盆/面盆维修"},
+                    {"name":"洗手盆下水管维修","value":"￥50/根"},
+                    {"name":"洗手盆上水管维修","value":"￥50/根"},
+                    {"name":"其他","value":"面议"}
+                ],
+                [
+                    {"title":"花洒/淋浴头维修安装"},
+                    {"name":"花洒/淋浴头维修/安装","value":"￥70/个"},
+                    {"name":"其他","value":"面议"}
+                ],
+                [
+                    {"title":"浴霸安装"},
+                    {"name":"吸顶式浴霸安装","value":"￥190/台"},
+                    {"name":"吸顶式浴霸安装（新机安装）","value":"￥270/台"},
+                    {"name":"挂壁式浴霸安装","value":"￥190/台"},
+                    {"name":"其他","value":"面议"}
+                ]
+            ],
+            [
+                [
+                    {"title":"空调保养维修"},
+                    {"name":"空调铜管更换维修（1P）","value":"￥60/米"},
+                    {"name":"空调铜管更换维修（2P）","value":"￥75/米"},
+                    {"name":"空调散热片更换维修","value":"￥145/次"},
+                    {"name":"空调清洗（挂机）","value":"￥90/台"},
+                    {"name":"空调清洗（柜机）","value":"￥139/台"},
+                    {"name":"其他","value":"面议"}
+                ],
+                [
+                    {"title":"洗衣机保养维修"},
+                    {"name":"洗衣机进水阀更换维修","value":"￥55/次"},
+                    {"name":"洗衣机排水电磁阀维修更换","value":"￥60/次"},
+                    {"name":"洗衣机电脑板更换","value":"￥115/次"},
+                    {"name":"洗衣机电机更换维修","value":"￥115/次"},
+                    {"name":"洗衣机排水阀更换维修","value":"￥75/次"},
+                    {"name":"洗衣机电容更换","value":"￥45/次"},
+                    {"name":"其他","value":"面议"}
+                ],
+                [
+                    {"title":"冰箱保养维修"},
+                    {"name":"冰箱照明维修","value":"￥45/次"},
+                    {"name":"冰箱清洗（单门）","value":"￥45/次"},
+                    {"name":"冰箱清洗（双门）","value":"￥95/次"},
+                    {"name":"冰箱更换散热片","value":"￥115/次"},
+                    {"name":"冰箱更换封密条","value":"￥45/次"},
+                    {"name":"其他","value":"面议"}
+                ],
+                [
+                    {"title":"热水器维修"},
+                    {"name":"热水器加热管更换维修","value":"￥65/次"},
+                    {"name":"热水器安全阀更换维修","value":"￥65/次"},
+                    {"name":"热水器镁棒更换维修","value":"￥75/次"},
+                    {"name":"热水器主控制器更换维修","value":"￥75/次"},
+                    {"name":"热水器内胆除垢","value":"￥145/次"},
+                    {"name":"其他","value":"面议"}
+                ]
+            ],
+            [
+                [
+                    {"title":"管道维修"},
+                    {"name":"下水管更换维修（pvc）","value":"￥55/米"},
+                    {"name":"洗菜盆下水管维修","value":"￥55/次"},
+                    {"name":"主管道维修","value":"￥195起"},
+                    {"name":"独立下水道改造维修","value":"￥95/次"},
+                    {"name":"其他","value":"面议"}
+                ],
+                [
+                    {"title":"管道疏通"},
+                    {"name":"洗手/菜盆下水管道疏通（手动）","value":"￥75/次"},
+                    {"name":"蹲便疏通（手动疏通）","value":"￥145/次"},
+                    {"name":"地漏疏通（手动）","value":"￥75/次"},
+                    {"name":"马桶疏通（非拆卸/手动疏通）","value":"￥115/次"},
+                    {"name":"其他","value":"面议"}
+                ], 
+                [
+                    {"title":"墙体打孔"},
+                    {"name":"砖墙打孔（直径 10cm）","value":"￥150/个"},
+                    {"name":"砖墙打孔（直径 20cm）","value":"￥210/个"},
+                    {"name":"砖墙打孔（直径 30cm）","value":"￥280/个"},
+                    {"name":"浇筑墙打孔（直径 2-5cm）","value":"￥69起"},
+                    {"name":"浇筑墙打孔（直径 10cm）","value":"￥175/个"},
+                    {"name":"浇筑墙打孔（直径 20cm）","value":"￥275/个"},
+                    {"name":"其他","value":"面议"}
+                ],    
+            ],
+            [
+                [
+                    {"title":"门窗五金维修"},
+                    {"name":"木门荷叶更换维修","value":"￥60/副"},
+                    {"name":"密封条更换维修","value":"￥60起"},
+                    {"name":"门吸维修安装","value":"￥50/个"},
+                    {"name":"塑钢门锁更换维修","value":"￥40/个"},
+                    {"name":"门窗检修套餐","value":"￥288/次"},
+                    {"name":"其他","value":"面议"}
+                ],
+                [
+                    {"title":"五金挂件饰品安装"},
+                    {"name":"洗浴挂帘安装","value":"￥40/个"},
+                    {"name":"储物架安装","value":"￥40/个"},
+                    {"name":"肥皂托/毛巾架安装","value":"￥40/个"},
+                    {"name":"镜框/穿衣镜安装","value":"￥75/个"},
+                    {"name":"挂装饰品","value":"￥55起"},
+                    {"name":"其他","value":"面议"}
+                ],
+                [
+                    {"title":"门窗五金维修"},
+                    {"name":"木门荷叶更换维修","value":"￥60/副"},
+                    {"name":"密封条更换维修","value":"￥60起"},
+                    {"name":"门吸维修安装","value":"￥50/个"},
+                    {"name":"塑钢门锁更换维修","value":"￥40/个"},
+                    {"name":"门窗检修套餐","value":"￥288/次"},
+                    {"name":"其他","value":"面议"}
+                ],
+                [
+                    {"title":"门窗五金安装"},
+                    {"name":"防盗门锁换修（普通十字）","value":"￥750/副"},
+                    {"name":"木门荷叶更换安装","value":"￥55/副"},
+                    {"name":"室内门球锁更换（含材料）","value":"￥135/把"},
+                    {"name":"其他","value":"面议"}
+                ],
+                [
+                    {"title":"橱柜维修"},
+                    {"name":"油烟机烟道更换维修（明管）","value":"￥60/个"},
+                    {"name":"橱柜水盆更换维修","value":"￥55/个"},
+                    {"name":"橱柜太面维修","value":"￥95/个"},
+                    {"name":"其他","value":"面议"}
+                ]
+            ],
+            [
+                [
+                    {"title":"开锁服务"},
+                    {"name":"卧室门锁","value":"￥100/次"},
+                    {"name":"防盗门锁（普通十字锁）","value":"￥100/次"},
+                    {"name":"防盗门锁（叶片钥匙）","value":"￥250/次"},
+                    {"name":"防盗门锁（长条钥匙）","value":"￥110/次"},
+                    {"name":"其他","value":"面议"}
+                ]
+            ]
+        ];
+    	$("#fixType").select({
+            title: "选择维修分类",
+            items: [
+                {
+                title: "水电维修",
+                value: "0",
+                },
+                {
+                title: "卫浴洁具",
+                value: "1",
+                },
+                {
+                title: "家电维修",
+                value: "2",
+                },
+                {
+                title: "打孔疏通",
+                value: "3",
+                },
+                {
+                title: "门窗家居",
+                value: "4",
+                },
+                {
+                title: "开锁服务",
+                value: "5",
+                }
+            ]
+        });
         function getItemHtml(itemName,itemValue){
             let itemHtml = 
-            '<a class="weui-cell weui-cell_access" href="./orderPlace.html?itemName='+itemName+'&itemValue='+itemValue+'">'+
+            '<a class="weui-cell  weui-cell_access" href="./orderPlace.html?itemName='+itemName+'&itemValue='+itemValue+'">'+
                 '<div class="weui-cell__bd">'+
                     '<p>'+itemName+'</p>'+
                 '</div>'+
@@ -87,108 +305,34 @@
             '</a>';
             return itemHtml;
         }
-        const fixItem = [
-            [
-                {"name":"aasdf","value":"11"},
-                {"name":"aasdf","value":"11"},
-                {"name":"aasdf","value":"11"},
-                {"name":"aasdf","value":"11"},
-                {"name":"aasdf","value":"11"},
-                {"name":"aasdf","value":"11"},
-                {"name":"aasdf","value":"11"},
-            ],
-            [
-                {"name":"aasdf2","value":"112"},
-                {"name":"aasdf2","value":"112"},
-            ],
-            [
-                {"name":"aasdf3","value":"113"},
-                {"name":"aasdf3","value":"113"},
-                {"name":"aasdf3","value":"113"},
-            ],
-            [
-                {"name":"aasdf4","value":"114"},
-                {"name":"aasdf4","value":"114"},
-                {"name":"aasdf4","value":"114"},
-                {"name":"aasdf4","value":"114"},
-            ],
-            [
-                {"name":"aasdf5","value":"115"},
-                {"name":"aasdf5","value":"115"},
-                {"name":"aasdf5","value":"115"},
-                {"name":"aasdf5","value":"115"},
-                {"name":"aasdf5","value":"115"},
-            ],
-            [],
-            [],
-            [],
-            [],
-            [],
-            [],
-        ];
-    	$("#fixType").select({
-            title: "选择维修分类",
-            items: [
-                {
-                title: "水龙头",
-                value: "0",
-                },
-                {
-                title: "水管",
-                value: "1",
-                },
-                {
-                title: "iPhone 5S",
-                value: "2",
-                },
-                {
-                title: "iPhone 6",
-                value: "3",
-                },
-                {
-                title: "iPhone 6S",
-                value: "4",
-                },
-                {
-                title: "iPhone 6P",
-                value: "5",
-                },
-                {
-                title: "iPhone 6SP",
-                value: "6",
-                },
-                {
-                title: "iPhone SE",
-                value: "7",
-                },
-                {
-                title: "iPhone 7",
-                value: "8"
-                },
-                {
-                title: "iPhone X",
-                value: "9"
-                },
-                {
-                title: "全部",
-                value: "10"
+
+        function getHeadHtml(itemTitle){
+            let itemHtml = 
+            '<div class="weui-cells__title">'+itemTitle+'</div>'+
+            '<div class="weui-cells my-cells" id="item-contain">';
+            return itemHtml;
+        }
+
+        function getDivHtml(item){
+            let itemHtml = '';
+            for(let i = 0; i < item.length ; i++){
+                if(i == 0){
+                    itemHtml += getHeadHtml(item[i].title);
+                }else if(i == (item.length - 1)){
+                    itemHtml += '</div>';
+                }else{
+                    itemHtml += getItemHtml(item[i].name,item[i].value);
                 }
-            ]
-        });
+            }
+            return itemHtml;
+        }
         $("#fixType").change(function(){
             let index =  $("#fixType").attr("data-values");
             let itemHtml = '';
-            if(index == 10){
-                fixItem.forEach(function(item1) {
-                    item1.forEach(function(item){
-                        itemHtml += getItemHtml(item.name,item.value);
-                    },this);
-                }, this);
-            }else{
-                fixItem[index].forEach(function(item) {
-                    itemHtml += getItemHtml(item.name,item.value);
-                }, this);
-            }
+            var item = fixItem[index];
+            fixItem[index].forEach(function(item) {
+                itemHtml += getDivHtml(item);
+            }, this);
             $("#item-contain").html(itemHtml);
         });
 
