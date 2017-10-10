@@ -76,13 +76,14 @@
         function goBack (){
     		window.history.go(-1);
     	}
+
         function getItemHtml(itemName,itemValue){
             let itemHtml = 
-            '<a class="weui-cell weui-cell_access" href="./orderPlace.html">'+
+            '<a class="weui-cell weui-cell_access" href="./orderPlace.html?itemName='+itemName+'&itemValue='+itemValue+'">'+
                 '<div class="weui-cell__bd">'+
                     '<p>'+itemName+'</p>'+
                 '</div>'+
-                '<div class="weui-cell__ft">￥'+itemValue+'</div>'+
+                '<div class="weui-cell__ft">'+itemValue+'</div>'+
             '</a>';
             return itemHtml;
         }
@@ -129,11 +130,11 @@
             title: "选择维修分类",
             items: [
                 {
-                title: "iPhone 3GS",
+                title: "水龙头",
                 value: "0",
                 },
                 {
-                title: "iPhone 5",
+                title: "水管",
                 value: "1",
                 },
                 {
@@ -169,7 +170,7 @@
                 value: "9"
                 },
                 {
-                title: "all",
+                title: "全部",
                 value: "10"
                 }
             ]
@@ -189,6 +190,25 @@
                 }, this);
             }
             $("#item-contain").html(itemHtml);
+        });
+
+
+        //获取url中的参数
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", 'i'); // 匹配目标参数
+            var result = window.location.search.substr(1).match(reg);  // 对querystring匹配目标参数
+            if (result != null) {
+                var str = decodeURIComponent(result[2]);
+                return str;
+            } else {
+                return null;
+            }
+        }
+
+        $(function(){
+            $("#fixType").val(getQueryString('itemName')||'all');
+            $("#fixType").attr("data-values",getQueryString('itemValue')||'all');
+            $("#fixType").trigger('change');
         });
     </script>
 </body>

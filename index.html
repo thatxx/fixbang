@@ -51,6 +51,9 @@
   color: #777;
   font-size: smaller;
 }
+.swiper-pagination-bullet-active{
+  background-color: #1296db;
+}
 </style>
 <body style="height: 100vh;    background-color: #f8f8f8;">
     <!-- 容器 -->
@@ -79,11 +82,12 @@
               <div class="swiper-slide"><img style="width:100%;height:30vh;" src="img/宣传图2.png" alt=""></div>
               <div class="swiper-slide"><img style="width:100%;height:30vh;" src="img/宣传图3.png" alt=""></div>
             </div>
+            <div class="swiper-pagination"></div>
           </div>
           <div class="page-pd">
           <div class="weui-flex">
-              <div class="weui-flex__item"><div class="placeholder"><span class="span-img" style="background-color: #FF9999;"><img src="./img/水龙头.svg" alt=""></span><span>水龙头</span></div></div>
-              <div class="weui-flex__item"><div class="placeholder"><span class="span-img" style="background-color: #99CCFF;"><img src="./img/水管.svg" alt=""></span><span>水管</span></div></div>
+              <div class="weui-flex__item" onclick="goMenu('水龙头',0);"><div class="placeholder"><span class="span-img" style="background-color: #FF9999;"><img src="./img/水龙头.svg" alt=""></span><span>水龙头</span></div></div>
+              <div class="weui-flex__item" onclick="goMenu('水管',1);"><div class="placeholder"><span class="span-img" style="background-color: #99CCFF;"><img src="./img/水管.svg" alt=""></span><span>水管</span></div></div>
               <div class="weui-flex__item"><div class="placeholder"><span class="span-img" style="background-color: #CC99FF;"><img src="./img/阀门.svg" alt=""></span><span>阀门</span></div></div>
               <div class="weui-flex__item"><div class="placeholder"><span class="span-img" style="background-color: #99CCCC;"><img src="./img/水.svg" alt=""></span><span>水路综合</span></div></div>
               <div class="weui-flex__item"><div class="placeholder"><span class="span-img" style="background-color: #6699CC;"><img src="./img/马桶.svg" alt=""></span><span>马桶</span></div></div>
@@ -93,14 +97,14 @@
               <div class="weui-flex__item"><div class="placeholder"><span class="span-img" style="background-color: #996699;"><img src="./img/花洒.svg" alt=""></span><span>花洒</span></div></div>
               <div class="weui-flex__item"><div class="placeholder"><span class="span-img" style="background-color: #66CC99;"><img src="./img/浴霸.svg" alt=""></span><span>浴霸</span></div></div>
               <div class="weui-flex__item"><div class="placeholder"><span class="span-img" style="background-color: #9999CC;"><img src="./img/卫浴.svg" alt=""></span><span>卫浴洁具</span></div></div>
-              <div class="weui-flex__item"><div class="placeholder"><span class="span-img" style="background-color: #1296db;"><img src="./img/全部.svg" alt=""></span><span>全部</span></div></div>
+              <div class="weui-flex__item" onclick="goMenu('全部',10);"><div class="placeholder"><span class="span-img" style="background-color: #1296db;"><img src="./img/全部.svg" alt=""></span><span>全部</span></div></div>
           </div>
           </div>
           <div class="page-pd">
               <div class="weui-panel weui-panel_access">
                   <div class="weui-panel__hd">热门服务</div>
                   <div class="weui-panel__bd">
-                      <a href="./orderPlace.html" class="weui-media-box weui-media-box_appmsg">
+                      <a href="./orderPlace.html?itemName=台上盆安装&itemValue=￥80/个" class="weui-media-box weui-media-box_appmsg">
                           <div class="weui-media-box__hd">
                               <img class="weui-media-box__thumb" src="./img/洗手盆维修.png" alt="">
                           </div>
@@ -109,7 +113,7 @@
                               <p class="weui-media-box__desc">￥80/个</p>
                           </div>
                       </a>
-                      <a href="./orderPlace.html" class="weui-media-box weui-media-box_appmsg">
+                      <a href="./orderPlace.html?itemName=软管更换维修&itemValue=￥40/根" class="weui-media-box weui-media-box_appmsg">
                           <div class="weui-media-box__hd">
                               <img class="weui-media-box__thumb" src="./img/软管维修.png" alt="">
                           </div>
@@ -118,7 +122,7 @@
                               <p class="weui-media-box__desc">￥40/根</p>
                           </div>
                       </a>
-                      <a href="./orderPlace.html" class="weui-media-box weui-media-box_appmsg">
+                      <a href="./orderPlace.html?itemName=吸顶式浴霸安装&itemValue=￥190/台" class="weui-media-box weui-media-box_appmsg">
                           <div class="weui-media-box__hd">
                               <img class="weui-media-box__thumb" src="./img/浴霸维修.png" alt="">
                           </div>
@@ -127,7 +131,7 @@
                               <p class="weui-media-box__desc">￥190/台</p>
                           </div>
                       </a>
-                      <a href="./orderPlace.html" class="weui-media-box weui-media-box_appmsg">
+                      <a href="./orderPlace.html?itemName=智能马桶盖板安装&itemValue=￥70/个" class="weui-media-box weui-media-box_appmsg">
                           <div class="weui-media-box__hd">
                               <img class="weui-media-box__thumb" src="./img/智能马桶盖板安装.png" alt="">
                           </div>
@@ -181,7 +185,9 @@
             effect : 'slide'
           });
         });
-        
+        function goMenu(itemName,itemValue){
+          window.location = './orderMenu.html?itemName='+itemName+'&itemValue='+itemValue;
+        }
       </script>
 </body>
 </html>

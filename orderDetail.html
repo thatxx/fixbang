@@ -107,11 +107,11 @@
                 </div>
                 <div class="weui-form-preview__item">
                 <label class="weui-form-preview__label">服务/维修项目</label>
-                <span class="weui-form-preview__value">下水管道疏通</span>
+                <span class="weui-form-preview__value" id="itemName">下水管道疏通</span>
                 </div>
                 <div class="weui-form-preview__item">
                 <label class="weui-form-preview__label">预估价格</label>
-                <span class="weui-form-preview__value">￥80.00</span>
+                <span class="weui-form-preview__value" id="itemValue">￥80.00</span>
                 </div>
             </div>
             <div class="weui-form-preview__bd">
@@ -171,6 +171,24 @@
 			  ]
 			});
     	}
+
+        //获取url中的参数
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", 'i'); // 匹配目标参数
+            var result = window.location.search.substr(1).match(reg);  // 对querystring匹配目标参数
+            if (result != null) {
+                var str = decodeURIComponent(result[2]);
+                return str;
+            } else {
+                return null;
+            }
+        }
+
+        $(function(){
+            $("#itemName").text(getQueryString('itemName')||'台上盆安装');
+            $("#itemValue").text(getQueryString('itemValue')||'￥80/个');
+        });
+
     	function goBack (){
     		window.history.go(-1);
     	}

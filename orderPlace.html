@@ -75,8 +75,8 @@
             <div class="weui-panel__hd" style="color:#129bfb;font-size:medium;">维修项目</div>
             <div class="weui-panel__bd">
                 <div class="weui-media-box weui-media-box_text">
-                    <h4 class="weui-media-box__title" style="color:#666">台上盆安装</h4>
-                    <p class="weui-media-box__desc">预估价格:￥80/个</p>
+                    <h4 class="weui-media-box__title" style="color:#666" id="itemName">台上盆安装</h4>
+                    <p class="weui-media-box__desc" id="itemValue">预估价格:￥80/个</p>
                 </div>
             </div>
         </div>
@@ -160,13 +160,29 @@
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/jquery-weui.min.js"></script>
     <script type="text/javascript">
-    	
+        //获取url中的参数
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", 'i'); // 匹配目标参数
+            var result = window.location.search.substr(1).match(reg);  // 对querystring匹配目标参数
+            if (result != null) {
+                var str = decodeURIComponent(result[2]);
+                return str;
+            } else {
+                return null;
+            }
+        }
+
+    	$(function(){
+            $("#itemName").text(getQueryString('itemName')||'台上盆安装');
+            $("#itemValue").text("预估价格："+(getQueryString('itemValue')||'￥80/个'));
+        });
+        
         function submit (){
             $.showLoading("提交中");
             setTimeout(function() {
                 $.hideLoading();
                 $.toast("提交成功",1000, function() {
-                    window.location = './orderMsg.html';
+                    window.location = './orderMsg.html'+window.location.search;
                 });
             }, 1000);
         }
